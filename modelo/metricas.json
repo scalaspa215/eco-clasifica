@@ -1,0 +1,109 @@
+{
+  "fecha": "2026-10-14",
+  "dataset": "TrashNet — Gary Thung y Mindy Yang (Stanford CS229, 2016). github.com/garythung/trashnet",
+  "licencia_dataset": "MIT",
+  "n_imagenes": {
+    "train": 1768,
+    "val": 379,
+    "test": 380
+  },
+  "entrenamiento": {
+    "epocas": 12,
+    "mejor_epoca": 12,
+    "lr": 0.0003,
+    "batch": 32,
+    "seed": 42
+  },
+  "seleccion": {
+    "criterio": "mayor balanced accuracy en el conjunto de validación",
+    "validacion": {
+      "efficientnet_b0": {
+        "accuracy": 0.8681,
+        "balanced_accuracy": 0.8593
+      },
+      "clip_zero_shot": {
+        "accuracy": 0.8047,
+        "balanced_accuracy": 0.8079
+      }
+    },
+    "ganador_validacion": "EfficientNet-B0",
+    "modelo_desplegado": "EfficientNet-B0",
+    "motivo": "EfficientNet-B0 obtuvo mayor balanced accuracy en validación (+5.1 puntos porcentuales sobre CLIP), por eso se usa en la app."
+  },
+  "prueba": {
+    "efficientnet_b0": {
+      "accuracy": 0.8868,
+      "balanced_accuracy": 0.8884
+    },
+    "clip_zero_shot": {
+      "accuracy": 0.7711,
+      "balanced_accuracy": 0.731
+    },
+    "modelo_desplegado": {
+      "accuracy": 0.8868,
+      "balanced_accuracy": 0.8884,
+      "precision_por_clase": {
+        "Cartón": 0.9298,
+        "Vidrio": 0.8684,
+        "Metal": 0.8551,
+        "Papel": 0.9222,
+        "Plástico": 0.9508,
+        "Basura (no reciclable)": 0.6667
+      },
+      "recall_por_clase": {
+        "Cartón": 0.8833,
+        "Vidrio": 0.8684,
+        "Metal": 0.9516,
+        "Papel": 0.9326,
+        "Plástico": 0.7945,
+        "Basura (no reciclable)": 0.9
+      }
+    },
+    "inferencia_onnx_app": {
+      "accuracy": 0.8842,
+      "aciertos": 336,
+      "n": 380,
+      "nota": "Medición ONNX en el notebook, sección 10. La matriz de confusión, balanced accuracy y métricas por clase publicadas corresponden a la evaluación PyTorch, que coincidió en 379/380 predicciones con ONNX."
+    }
+  },
+  "errores_costosos": {
+    "basura_como_reciclable": 2,
+    "n_basura": 20,
+    "vidrio_como_fibra_o_plastico": 2,
+    "n_vidrio": 76,
+    "reciclable_como_basura": 9,
+    "n_reciclables": 360
+  },
+  "umbral_confianza": {
+    "valor": 0.6,
+    "criterio": "menor umbral cuyas predicciones aceptadas logran ≥95% de accuracy en validación",
+    "validacion": {
+      "cobertura": 0.7599,
+      "accuracy_aceptadas": 0.9549
+    },
+    "prueba": {
+      "cobertura": 0.7895,
+      "accuracy_aceptadas": 0.96,
+      "accuracy_bajo_umbral_txt": "61,3%"
+    }
+  },
+  "verificacion_app": {
+    "predicciones_identicas": 379,
+    "n": 380,
+    "dif_max_prob": 0.019698679447174072,
+    "exportador_onnx": "torchscript"
+  },
+  "fotos_reales": null,
+  "versiones": {
+    "torch": "2.11.0+cu130",
+    "torchvision": "0.26.0+cu130",
+    "timm": "1.0.30",
+    "transformers": "5.19.0",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.29.0",
+    "scikit-learn": "1.6.1",
+    "numpy": "2.1.3",
+    "pillow": "11.3.0",
+    "google-genai": "2.30.1"
+  }
+}
