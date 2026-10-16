@@ -1,0 +1,16 @@
+# Claves y archivos privados
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+*.key
+
+# Archivos temporales de Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
