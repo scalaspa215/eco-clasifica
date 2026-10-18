@@ -25,31 +25,84 @@ st.set_page_config(page_title="EcoClasifica ♻️", page_icon="♻️", layout=
 # ---------------------------------------------------------------------------
 st.markdown("""
 <style>
-.block-container {padding-top: 1.6rem; max-width: 1180px;}
-.eco-header {background: linear-gradient(120deg,#1b5e20 0%,#2e7d32 45%,#00897b 100%); color:#fff;
-  padding: 22px 28px; border-radius: 18px; margin-bottom: 12px;}
-.eco-header h1 {color:#fff; margin:0; font-size:2.1rem; line-height:1.2;}
-.eco-header p {color:#e8f5e9; margin:6px 0 0 0;}
-.eco-flujo {font-size:.88rem; color:#c8e6c9; margin-top:8px;}
-.eco-aviso {background:#fff8e1; border:1px solid #ffe082; color:#5d4037; padding:10px 14px; border-radius:12px; font-size:.9rem;}
-.eco-tarjeta {display:flex; gap:16px; align-items:center; padding:16px 18px; border-radius:14px; background:#ffffff;
-  box-shadow:0 2px 12px rgba(0,0,0,.08); color:#1f2937;}
-.eco-icono {font-size:3rem;}
-.eco-titulo {font-size:1.55rem; font-weight:800;}
-.eco-sub {color:#4b5563; margin-top:3px; font-size:.95rem;}
-.eco-barra {height:10px; background:#e5e7eb; border-radius:6px; margin-top:8px; width:100%; max-width:300px;}
-.eco-barra > div {height:10px; border-radius:6px;}
-.eco-alerta {margin-top:10px; background:#ffebee; border:1px solid #ef9a9a; color:#b71c1c; padding:10px 14px; border-radius:12px;}
-.eco-ok {margin-top:10px; background:#e8f5e9; border:1px solid #a5d6a7; color:#1b5e20; padding:10px 14px; border-radius:12px;}
-.eco-prob {display:grid; grid-template-columns: 170px 1fr 52px; gap:8px; align-items:center; margin:5px 0; font-size:.93rem; color:#1f2937;}
-.eco-prob .pista {height:12px; background:#eef2f1; border-radius:6px; overflow:hidden;}
-.eco-prob .pista > div {height:12px; border-radius:6px;}
-.eco-kpis {display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;}
-.eco-kpi {flex:1; min-width:130px; text-align:center; padding:10px; border-radius:12px; background:#e8f5e9; color:#1b5e20;}
-.eco-kpi b {display:block; font-size:1.45rem;}
-.eco-kpi span {font-size:.8rem;}
-.eco-chip {display:inline-block; padding:3px 10px; border-radius:999px; color:#fff; font-size:.82rem; margin:2px 4px 2px 0;}
-@media (max-width: 640px){ .eco-prob {grid-template-columns: 120px 1fr 46px;} .eco-header h1{font-size:1.6rem;} }
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root { color-scheme: light; }
+html, body, [data-testid="stAppViewContainer"], [data-testid="stSidebar"] {
+  font-family: 'DM Sans', sans-serif;
+}
+.stApp {
+  background: radial-gradient(ellipse 65% 32% at 85% -6%,rgba(65,211,176,.15),transparent 75%),
+              linear-gradient(180deg,#f8fbfa 0%,#f1f7f5 100%);
+  color:#16342f;
+}
+.block-container {padding-top:2.2rem; padding-bottom:3.2rem; max-width:1250px;}
+h1,h2,h3,h4 {font-family:'Manrope','DM Sans',sans-serif;letter-spacing:-.035em;}
+[data-testid="stSidebar"] {
+  background:linear-gradient(180deg,#e9f5f1 0%,#f3f9f7 100%);
+  border-right:1px solid #d7e9e3;
+}
+[data-testid="stSidebar"] h3 {font-weight:800;color:#183f37;}
+[data-testid="stSidebar"] [data-testid="stCaptionContainer"] {color:#617b74;}
+.eco-header {
+  position:relative;overflow:hidden;isolation:isolate;
+  background: radial-gradient(circle at 94% 8%,rgba(106,255,195,.18),transparent 35%),
+              linear-gradient(116deg,#073b35 0%,#07594d 53%,#088575 100%);
+  color:#fff; padding:40px 44px 36px; border-radius:26px; margin-bottom:16px;
+  border:1px solid rgba(255,255,255,.13);
+  box-shadow:0 20px 45px rgba(6,73,61,.20);
+}
+.eco-header:after {
+  content:''; position:absolute; z-index:-1; right:-70px; top:-125px;
+  width:370px;height:370px; border:1px solid rgba(255,255,255,.18);border-radius:50%;
+  box-shadow:0 0 0 45px rgba(255,255,255,.045),0 0 0 105px rgba(255,255,255,.025);
+}
+.eco-eyebrow {color:#a6f0d6;font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;}
+.eco-header h1 {color:#fff;font-size:clamp(2.1rem,4vw,3.25rem);font-weight:800;line-height:1.16;margin:0 0 12px;letter-spacing:-.045em;}
+.eco-header p {color:#e5faf3;font-size:1rem;line-height:1.7;max-width:780px;margin:0;}
+.eco-flujo {display:inline-block;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);
+  color:#ecfff6; padding:9px 14px; border-radius:12px;font-size:.82rem;margin-top:20px;line-height:1.5;}
+.eco-aviso {background:#fffdf5;border:1px solid #f4e8be;color:#755827;padding:14px 18px;
+  border-radius:14px;font-size:.9rem;box-shadow:0 3px 12px rgba(116,82,24,.035);margin-bottom:5px;}
+.eco-tarjeta {display:flex;gap:20px;align-items:center;padding:24px 26px;border-radius:22px;background:#fff;
+  border:1px solid #e5eeea;box-shadow:0 12px 32px rgba(29,64,58,.09);color:#18342e;}
+.eco-icono {font-size:3rem;filter:drop-shadow(0 5px 6px rgba(0,0,0,.05));}
+.eco-titulo {font-family:'Manrope',sans-serif;font-size:1.8rem;font-weight:800;letter-spacing:-.05em;}
+.eco-sub {color:#56746b;margin-top:6px;font-size:.93rem;line-height:1.55;}
+.eco-barra {height:11px;background:#e9f1ee;border-radius:999px;margin-top:14px;width:100%;max-width:360px;overflow:hidden;}
+.eco-barra > div {height:11px;border-radius:999px;}
+.eco-alerta {margin-top:14px;background:#fff2f0;border:1px solid #f7cbc5;color:#8a3533;padding:17px 19px;border-radius:16px;line-height:1.65;}
+.eco-ok {margin-top:14px;background:#eaf8f2;border:1px solid #c6e9d8;color:#21644e;padding:15px 19px;border-radius:16px;line-height:1.6;}
+.eco-prob {display:grid;grid-template-columns:170px 1fr 50px;gap:11px;align-items:center;margin:12px 0;font-size:.9rem;color:#24483f;}
+.eco-prob .pista {height:11px;background:#edf3f1;border-radius:999px;overflow:hidden;}
+.eco-prob .pista > div {height:11px;border-radius:999px;}
+.eco-kpis {display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;}
+.eco-kpi {flex:1;min-width:140px;text-align:center;padding:20px 15px;border-radius:18px;background:#fff;
+  border:1px solid #e0ede7;box-shadow:0 6px 20px rgba(17,74,62,.055);color:#155f52;}
+.eco-kpi b {font-family:'Manrope',sans-serif;display:block;font-size:1.65rem;letter-spacing:-.045em;}
+.eco-kpi span {font-size:.78rem;color:#698178;line-height:1.5;}
+.eco-chip {display:inline-block;padding:5px 11px;border-radius:999px;color:#fff;font-size:.78rem;
+  font-weight:700;margin:3px 4px 3px 0;box-shadow:0 3px 8px rgba(0,0,0,.06);}
+/* Componentes nativos de Streamlit: pestañas, carga y botones */
+button[data-baseweb="tab"] {font-family:'DM Sans',sans-serif;font-weight:700;border-radius:10px 10px 0 0;}
+button[data-baseweb="tab"][aria-selected="true"] {color:#087d69;}
+[data-testid="stFileUploader"] {border:1px solid #e0eae6;border-radius:18px;background:rgba(255,255,255,.8);padding:12px;}
+[data-testid="stBaseButton-primary"] {background:linear-gradient(115deg,#007d69,#0aaa8e)!important;
+  border:0!important;border-radius:12px!important;font-weight:700!important;color:#fff!important;
+  box-shadow:0 7px 19px rgba(0,126,102,.18);transition:transform .15s ease,box-shadow .15s ease;}
+[data-testid="stBaseButton-primary"]:hover {transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,126,102,.24);}
+[data-testid="stBaseButton-secondary"] {border-radius:12px!important;border-color:#d8e5df!important;font-weight:600;}
+[data-testid="stBaseButton-secondary"]:hover {border-color:#007e69!important;color:#007e69!important;}
+[data-testid="stExpander"], [data-testid="stVerticalBlockBorderWrapper"] {border-radius:16px;}
+@media(max-width:760px){
+  .block-container {padding:1.1rem .8rem 2rem;}
+  .eco-header {padding:26px 22px;border-radius:19px;}
+  .eco-header h1 {font-size:2rem;}
+  .eco-header p {font-size:.91rem;}
+  .eco-flujo {font-size:.74rem;}
+  .eco-prob {grid-template-columns:116px 1fr 42px;gap:7px;}
+  .eco-tarjeta {padding:16px;gap:11px;}
+  .eco-kpi {min-width:100px;padding:14px 8px;}
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -84,9 +137,10 @@ def pct(x):
 # ---------------------------------------------------------------------------
 st.markdown("""
 <div class="eco-header">
+  <div class="eco-eyebrow">ECO INTELLIGENCE &nbsp; / &nbsp; VISIÓN ARTIFICIAL</div>
   <h1>♻️ EcoClasifica</h1>
-  <p>Toma o sube una foto de un residuo: la IA estima su material, te sugiere el contenedor y te explica cómo prepararlo.</p>
-  <div class="eco-flujo">📷 Imagen → 🧠 Modelo (clase + confianza) → 📊 Resultado → 💬 Gemini → ✅ Recomendación</div>
+  <p>Reciclar mejor comienza con identificar bien. Sube una fotografía y descubre el material más probable, su nivel de confianza y cómo prepararlo con ayuda de IA.</p>
+  <div class="eco-flujo">📷 Tu imagen &nbsp; → &nbsp; 🧠 Clasificación inteligente &nbsp; → &nbsp; 📊 Probabilidades &nbsp; → &nbsp; ✨ Recomendación Gemini</div>
 </div>""", unsafe_allow_html=True)
 st.markdown('<div class="eco-aviso">🎓 <b>Prototipo educativo</b> — proyecto académico. Las predicciones pueden equivocarse; '
             'no reemplaza las indicaciones de tu municipio o punto limpio.</div>', unsafe_allow_html=True)
